@@ -1,0 +1,26 @@
+{
+  "name": "css-strain",
+  "version": "0.0.1",
+  "description": "A tool for obfuscating CSS selectors and optionally replacing them in HTML files. Prevents class and ID conflicts.",
+  "main": "index.js",
+  "keywords": [
+    "css",
+    "obfuscation",
+    "selector",
+    "html",
+    "strain"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marceloxp/css-strain"
+  },
+  "bugs": {
+    "url": "https://github.com/marceloxp/css-strain/issues"
+  },
+  "author": "Marcelo XP",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "css": "^3.0.0"
+  }
+}
