@@ -1,11 +1,10 @@
 const { strainCss } = require('./lib/css');
 const { strainHtml } = require('./lib/html');
 
-function strainCssHtml(cssBody, htmlBody, randomLength = 4, prefix = '', version = null) {
-    return {
-        css: strainCss(cssBody, randomLength, prefix, version),
-        html: strainHtml(htmlBody, cssBody)
-    }
+function strainCssHtml(cssBody, htmlBody, separator = null, randomLength = 4, prefix = '', version = null) {
+    const cssResult = strainCss(cssBody, separator, randomLength, prefix, version);
+    const htmlResult = strainHtml(htmlBody, cssResult.cssMaps);
+    return { css: cssResult, html: htmlResult };
 }
 
 module.exports = {
