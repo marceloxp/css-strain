@@ -116,7 +116,7 @@ body {
             return document.querySelector('[data-strain-id="' + str_id + '"]');
         }
         const getStrainByClass = function(str_class) {
-            return document.querySelectorAll('[data-strain-class*="/' + str_class + '/"]');
+            return document.querySelectorAll('[data-strain-class*="[' + str_class + ']"]');
         }
     </script>
 </head>
