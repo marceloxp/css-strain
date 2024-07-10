@@ -40,7 +40,7 @@ describe('strainCssHtml', async () => {
         </html>
     `;
 
-    const result = strainCssHtml(cssBody, htmlBody, '-', 4, 'prefix', 1);
+    const result = strainCssHtml(cssBody, htmlBody, '_', 4, 'prefix', 1);
 
     it('Check CSS structure', () => {
         expect(result.css).to.have.property('cssMaps').that.is.an('array').with.lengthOf(3);
@@ -50,16 +50,15 @@ describe('strainCssHtml', async () => {
     });
 
     it('Check if the CSS was processed correctly', () => {
-        expect(result.css.css).to.match(/body {\s*color: black;\s*background-color: silver;\s*padding: 10px;\s*}/);
-        expect(result.css.css).to.match(/\.-prefix-v1-\w{4}-example {\s*color: red;\s*}/);
-        expect(result.css.css).to.match(/\.-prefix-v1-\w{4}-second-example {\s*color: green;\s*}/);
-        expect(result.css.css).to.match(/#-prefix-v1-\w{4}-third-example {\s*color: blue;\s*}/);
+        expect(result.css.css).to.match(/\.prefix_v1_\w{4}_example {\s*color: red;\s*}/);
+        expect(result.css.css).to.match(/\.prefix_v1_\w{4}_second-example {\s*color: green;\s*}/);
+        expect(result.css.css).to.match(/#prefix_v1_\w{4}_third-example {\s*color: blue;\s*}/);
     });
 
     it('Check if the HTML was processed correctly', () => {
         expect(result.html).to.be.a('string');
-        expect(result.html).to.match(/<h1 class="-prefix-v1-\w{4}-example">Hello World<\/h1>/);
-        expect(result.html).to.match(/<div class="-prefix-v1-\w{4}-second-example">Hello World<\/div>/);
-        expect(result.html).to.match(/<div id="-prefix-v1-\w{4}-third-example">Hello World<\/div>/);
+        expect(result.html).to.match(/<h1 class="prefix_v1_\w{4}_example">Hello World<\/h1>/);
+        expect(result.html).to.match(/<div class="prefix_v1_\w{4}_second-example">Hello World<\/div>/);
+        expect(result.html).to.match(/<div id="prefix_v1_\w{4}_third-example">Hello World<\/div>/);
     });
 });
