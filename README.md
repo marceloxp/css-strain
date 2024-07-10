@@ -21,63 +21,126 @@ const { strainCssHtml } = require('css-strain');
 const body_html = fs.readFileSync('./index.html', 'utf8');
 const body_css = fs.readFileSync('./assets/css/style.css', 'utf8');
 
-const strained = strainCssHtml(body_css, body_html, '_', 4, 'prefix', 1);
+// addHelpers = true
+// separator = '_'
+// random string length = 4
+// prefix string = 'prefix'
+// version = 1
+const strained = strainCssHtml(body_css, body_html, true, '_', 4, 'prefix', 1);
 ```
 
-### Output
+## Sources
+
+### CSS Source
+
+```css
+body {
+    color: black;
+    background-color: silver;
+    padding: 10px;
+}
+.example {
+    color: red;
+}
+.second-example {
+    color: green;
+}
+.another-example {
+    color: yellow;
+}
+#third-example {
+    color: blue;
+}
+```
+
+### HTML Source
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 class="example">Hello World</h1>
+    <div class="second-example another-example">Hello World</div>
+    <div id="third-example">Hello World</div>
+</body>
+</html>
+```
+
+## Results
+
+### CSS Result
+
+```css
+body {
+    color: black;
+    background-color: silver;
+    padding: 10px;
+}
+
+.prefix_v1_gcwo_example {
+    color: red;
+}
+
+.prefix_v1_iovW_second-example {
+    color: green;
+}
+
+.prefix_v1_MYzU_another-example {
+    color: yellow;
+}
+
+#prefix_v1_MuUt_third-example {
+    color: blue;
+}
+```
+
+### HTML Result
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        const getStrainById = function(str_id) {
+            return document.querySelector('[data-strain-id="' + str_id + '"]');
+        }
+        const getStrainByClass = function(str_class) {
+            return document.querySelectorAll('[data-strain-class*="/' + str_class + '/"]');
+        }
+    </script>
+</head>
+
+<body>
+    <h1 class="prefix_v1_gcwo_example" data-strain-class="[example]">Hello World</h1>
+    <div class="prefix_v1_iovW_second-example prefix_v1_MYzU_another-example" data-strain-class="[second-example][another-example]">Hello World One</div>
+    <div class="prefix_v1_MYzU_another-example" data-strain-class="[another-example]">Hello World Two</div>
+    <div id="prefix_v1_MuUt_third-example" data-strain-id="third-example">Hello World</div>
+</body>
+
+</html>
+```
+
+### Using helpers
 
 ```js
-{
-  css: {
-    cssMaps: [
-      {
-        original: '.example',
-        selector: '.example',
-        strain: '.prefix_v1_PljQ_example'
-      },
-      {
-        original: '.second-example',
-        selector: '.second-example',
-        strain: '.prefix_v1_IpOq_second-example'
-      },
-      {
-        original: '#third-example',
-        selector: '#third-example',
-        strain: '#prefix_v1_eTNY_third-example'
-      }
-    ],
-    selectors: [ '.example', '.second-example', '#third-example' ],
-    notSelectors: [ 'body' ],
-    css: '\n' +
-      '        body {\n' +
-      '            color: black;\n' +
-      '            background-color: silver;\n' +
-      '            padding: 10px;\n' +
-      '        }\n' +
-      '        .prefix_v1_PljQ_example {\n' +
-      '            color: red;\n' +
-      '        }\n' +
-      '        .prefix_v1_IpOq_second-example {\n' +
-      '            color: green;\n' +
-      '        }\n' +
-      '        #prefix_v1_eTNY_third-example {\n' +
-      '            color: blue;\n' +
-      '        }\n' +
-      '    '
-  },
-  html: '<!DOCTYPE html><html lang="en"><head>\n' +
-    '            <meta charset="UTF-8">\n' +
-    '            <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
-    '            <title>Document</title>\n' +
-    '            <link rel="stylesheet" href="style.css">\n' +
-    '        </head>\n' +
-    '        <body>\n' +
-    '            <h1 class="prefix_v1_PljQ_example">Hello World</h1>\n' +
-    '            <div class="prefix_v1_IpOq_second-example">Hello World</div>\n' +
-    '            <div id="prefix_v1_eTNY_third-example">Hello World</div>\n' +
-    '    </body>
-    </html>'
-}
+const element = getStrainById('third-example');
+// Result: <div id="prefix_v1_MuUt_third-example" data-strain-id="third-example">Hello World</div>
+
+const elements = getStrainByClass('another-example')
+// Results:
+// <div class="prefix_v1_iovW_second-example prefix_v1_MYzU_another-example" data-strain-class="[second-example][another-example]">Hello World One</div>
+// <div class="prefix_v1_MYzU_another-example" data-strain-class="[another-example]">Hello World Two</div>
 ```
 
 ### Use css-strain to keep your CSS organized, secure, and conflict-free, with the flexibility to adjust your HTML as needed.
