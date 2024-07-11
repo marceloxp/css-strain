@@ -50,9 +50,11 @@ describe('strainCssHtml', async () => {
         const newCssBody = result.css.css;
         const newHtmlBody = result.html;
 
-        console.log('newCssBody:');
+        console.log('\nnewCssBody:');
+        console.log('--------------------------------------------');
         console.log(newCssBody);
-        console.log('newHtmlBody:');
+        console.log('\nnewHtmlBody:');
+        console.log('--------------------------------------------');
         console.log(newHtmlBody);
 
         it('Check CSS structure', () => {

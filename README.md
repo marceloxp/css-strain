@@ -1,6 +1,7 @@
 # css-strain
 
 ![Banner](banner.png)
+
 **css-strain** is a powerful tool for CSS selector obfuscation with optional HTML file adjustments. It's ideal for avoiding class and ID conflicts in large-scale projects, where code maintenance and consistency are essential.
 
 ## Features
@@ -9,6 +10,10 @@
 - **Optional HTML Manipulation:** Automatically replaces old selectors with new ones in HTML files, ensuring visual styles remain intact. This feature can be used independently or in combination with CSS obfuscation.
 - **Flexible Configuration:** Allows customization of prefixes, versions, and the length of random strings to best fit your project.
 - **Simple Integration:** Easy to use with minimal integration, making it perfect for new or existing projects.
+
+## Try online
+
+[https://onecompiler.com/nodejs/42jpsvrj8](https://onecompiler.com/nodejs/42jpsvrj8)
 
 ## Usage
 
@@ -112,12 +117,12 @@ body {
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <script>
-        const getStrainById = function(str_id) {
-            return document.querySelector('[data-strain-id="' + str_id + '"]');
-        }
-        const getStrainByClass = function(str_class) {
-            return document.querySelectorAll('[data-strain-class*="[' + str_class + ']"]');
-        }
+        const getStrainById = function(t) {
+                return document.querySelector('[data-strain-id="' + t + '"]')
+            },
+            getStrainByClass = function(t) {
+                return document.querySelectorAll('[data-strain-class*="[' + t + ']"]')
+            };
     </script>
 </head>
 
