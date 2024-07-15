@@ -1,6 +1,6 @@
 {
   "name": "css-strain",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "A tool for obfuscating CSS selectors and optionally replacing them in HTML files. Prevents class and ID conflicts.",
   "main": "index.js",
   "keywords": [
@@ -25,7 +25,8 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
     "css": "^3.0.0",
-    "js-beautify": "^1.15.1"
+    "js-beautify": "^1.15.1",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "chai": "^5.1.1",
