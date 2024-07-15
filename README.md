@@ -26,12 +26,17 @@ const { strainCssHtml } = require('css-strain');
 const body_html = fs.readFileSync('./index.html', 'utf8');
 const body_css = fs.readFileSync('./assets/css/style.css', 'utf8');
 
-// addHelpers = true
-// separator = '_'
-// random string length = 4
-// prefix string = 'prefix'
-// version = 1
-const strained = strainCssHtml(body_css, body_html, true, '_', 4, 'prefix', 1);
+const options = {
+    body_css,
+    body_html,
+    addHelpers: true,
+    separator: '_',
+    randomLength: 4,
+    prefix: 'prefix',
+    version: 1
+};
+
+const strained = strainCssHtml(options);
 ```
 
 ## Sources
@@ -71,7 +76,9 @@ body {
 </head>
 <body>
     <h1 class="example">Hello World</h1>
-    <div class="second-example another-example">Hello World</div>
+    <div id="only-id" class="only-class another-only-class">Hello World</div>
+    <div class="second-example another-example">Hello World One</div>
+    <div class="another-example">Hello World Two</div>
     <div id="third-example">Hello World</div>
 </body>
 </html>
@@ -88,19 +95,19 @@ body {
     padding: 10px;
 }
 
-.prefix_v1_gcwo_example {
+.prefix_v1_WojH_example {
     color: red;
 }
 
-.prefix_v1_iovW_second-example {
+.prefix_v1_MMHh_second-example {
     color: green;
 }
 
-.prefix_v1_MYzU_another-example {
+.prefix_v1_vjDr_another-example {
     color: yellow;
 }
 
-#prefix_v1_MuUt_third-example {
+#prefix_v1_PaOp_third-example {
     color: blue;
 }
 ```
@@ -108,7 +115,6 @@ body {
 ### HTML Result
 
 ```html
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -127,10 +133,11 @@ body {
 </head>
 
 <body>
-    <h1 class="prefix_v1_gcwo_example" data-strain-class="[example]">Hello World</h1>
-    <div class="prefix_v1_iovW_second-example prefix_v1_MYzU_another-example" data-strain-class="[second-example][another-example]">Hello World One</div>
-    <div class="prefix_v1_MYzU_another-example" data-strain-class="[another-example]">Hello World Two</div>
-    <div id="prefix_v1_MuUt_third-example" data-strain-id="third-example">Hello World</div>
+    <h1 class="prefix_v1_WojH_example" data-strain-class="[example]">Hello World</h1>
+    <div id="prefix_v1_YxCG_only-id" class="prefix_v1_sIKV_only-class prefix_v1_ToJk_another-only-class" data-strain-id="only-id" data-strain-class="[only-class][another-only-class]">Hello World</div>
+    <div class="prefix_v1_MMHh_second-example prefix_v1_vjDr_another-example" data-strain-class="[second-example][another-example]">Hello World One</div>
+    <div class="prefix_v1_vjDr_another-example" data-strain-class="[another-example]">Hello World Two</div>
+    <div id="prefix_v1_PaOp_third-example" data-strain-id="third-example">Hello World</div>
 </body>
 
 </html>

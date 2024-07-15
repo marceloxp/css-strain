@@ -37,6 +37,7 @@ describe('strainCssHtml', async () => {
         </head>
         <body>
             <h1 class="example">Hello World</h1>
+            <div id="only-id" class="only-class another-only-class">Hello World</div>
             <div class="second-example another-example">Hello World One</div>
             <div class="another-example">Hello World Two</div>
             <div id="third-example">Hello World</div>
@@ -45,7 +46,17 @@ describe('strainCssHtml', async () => {
     `;
 
     try {
-        const result = strainCssHtml(cssBody, htmlBody, true, '_', 4, 'prefix', 1);
+        const options = {
+            cssBody,
+            htmlBody,
+            addHelpers: true,
+            separator: '_',
+            randomLength: 4,
+            prefix: 'prefix',
+            version: 1
+        };
+
+        const result = strainCssHtml(options);
 
         const newCssBody = result.css.css;
         const newHtmlBody = result.html;
@@ -73,7 +84,9 @@ describe('strainCssHtml', async () => {
         it('Check if the HTML was processed correctly', () => {
             expect(result.html).to.be.a('string');
             expect(result.html).to.match(/<h1 class="prefix_v1_\w{4}_example" data-strain-class="\[example\]">Hello World<\/h1>/);
+            expect(result.html).to.match(/<div id="prefix_v1_\w{4}_only-id" class="prefix_v1_\w{4}_only-class prefix_v1_\w{4}_another-only-class" data-strain-id="only-id" data-strain-class="\[only-class\]\[another-only-class\]">Hello World<\/div>/);
             expect(result.html).to.match(/<div class="prefix_v1_\w{4}_second-example prefix_v1_\w{4}_another-example" data-strain-class="\[second-example\]\[another-example\]">Hello World One<\/div>/);
+            expect(result.html).to.match(/<div class="prefix_v1_\w{4}_another-example" data-strain-class="\[another-example\]">Hello World Two<\/div>/);
             expect(result.html).to.match(/<div id="prefix_v1_\w{4}_third-example" data-strain-id="third-example">Hello World<\/div>/);
         });
     } catch (error) {
