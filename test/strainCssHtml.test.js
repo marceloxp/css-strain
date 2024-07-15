@@ -42,6 +42,7 @@ describe('strainCssHtml', async () => {
 
         it('Check if the CSS was processed correctly', () => {
             expect(result.css.css).to.match(/\.prefix_v1_\w{4}_example {\s*color: red;\s*}/);
+            expect(result.css.css).to.match(/\.prefix_v1_\w{4}_example {\s*color: blue;\s*}/);
             expect(result.css.css).to.match(/\.prefix_v1_\w{4}_second-example {\s*color: green;\s*}/);
             expect(result.css.css).to.match(/#prefix_v1_\w{4}_third-example {\s*color: blue;\s*}/);
         });
