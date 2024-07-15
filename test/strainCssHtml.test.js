@@ -1,4 +1,5 @@
-const { strainCssHtml } = require('../index'); // ajuste o caminho conforme necessário
+const fs = require('fs');
+const { strainCssHtml } = require('../index');
 
 describe('strainCssHtml', async () => {
     let expect;
@@ -6,46 +7,10 @@ describe('strainCssHtml', async () => {
         ({ expect } = await import('chai'));
     });
 
-    const cssBody = `
-        body {
-            color: black;
-            background-color: silver;
-            padding: 10px;
-        }
-        .example {
-            color: red;
-        }
-        .second-example {
-            color: green;
-        }
-        .another-example {
-            color: yellow;
-        }
-        #third-example {
-            color: blue;
-        }
-    `;
-
-    const htmlBody = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
-            <link rel="stylesheet" href="style.css">
-        </head>
-        <body>
-            <h1 class="example">Hello World</h1>
-            <div id="only-id" class="only-class another-only-class">Hello World</div>
-            <div class="second-example another-example">Hello World One</div>
-            <div class="another-example">Hello World Two</div>
-            <div id="third-example">Hello World</div>
-        </body>
-        </html>
-    `;
-
     try {
+        const cssBody = fs.readFileSync('./test/style.css', 'utf8');
+        const htmlBody = fs.readFileSync('./test/index.html', 'utf8');
+    
         const options = {
             cssBody,
             htmlBody,
@@ -83,11 +48,11 @@ describe('strainCssHtml', async () => {
 
         it('Check if the HTML was processed correctly', () => {
             expect(result.html).to.be.a('string');
-            expect(result.html).to.match(/<h1 class="prefix_v1_\w{4}_example" data-strain-class="\[example\]">Hello World<\/h1>/);
-            expect(result.html).to.match(/<div id="prefix_v1_\w{4}_only-id" class="prefix_v1_\w{4}_only-class prefix_v1_\w{4}_another-only-class" data-strain-id="only-id" data-strain-class="\[only-class\]\[another-only-class\]">Hello World<\/div>/);
-            expect(result.html).to.match(/<div class="prefix_v1_\w{4}_second-example prefix_v1_\w{4}_another-example" data-strain-class="\[second-example\]\[another-example\]">Hello World One<\/div>/);
-            expect(result.html).to.match(/<div class="prefix_v1_\w{4}_another-example" data-strain-class="\[another-example\]">Hello World Two<\/div>/);
-            expect(result.html).to.match(/<div id="prefix_v1_\w{4}_third-example" data-strain-id="third-example">Hello World<\/div>/);
+            expect(result.html).to.match(/<h1 class="prefix_v1_\w{4}_example" data-strain-class="\[example\]">Hello World Example<\/h1>/);
+            expect(result.html).to.match(/<div id="prefix_v1_\w{4}_only-id" class="prefix_v1_\w{4}_only-class prefix_v1_\w{4}_another-only-class" data-strain-id="only-id" data-strain-class="\[only-class\]\[another-only-class\]">Only ID and Only Class<\/div>/);
+            expect(result.html).to.match(/<div class="prefix_v1_\w{4}_second-example prefix_v1_\w{4}_another-example" data-strain-class="\[second-example\]\[another-example\]">Second and Another Example<\/div>/);
+            expect(result.html).to.match(/<div class="prefix_v1_\w{4}_another-example" data-strain-class="\[another-example\]">Another Example<\/div>/);
+            expect(result.html).to.match(/<div id="prefix_v1_\w{4}_third-example" data-strain-id="third-example">Third Example<\/div>/);
         });
     } catch (error) {
         console.error(error);

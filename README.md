@@ -27,8 +27,8 @@ const body_html = fs.readFileSync('./index.html', 'utf8');
 const body_css = fs.readFileSync('./assets/css/style.css', 'utf8');
 
 const options = {
-    body_css,
-    body_html,
+    cssBody: body_css,
+    htmlBody: body_html,
     addHelpers: true,
     separator: '_',
     randomLength: 4,

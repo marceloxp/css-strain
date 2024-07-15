@@ -1,0 +1,31 @@
+body {
+    color: black;
+    background-color: silver;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.first-section * {
+    margin: 0;
+    padding: 2px;
+}
+
+.example {
+    color: red;
+}
+
+.example::before {
+    content: '🔗';
+}
+
+.second-example {
+    color: green;
+}
+
+.another-example {
+    color: yellow;
+}
+
+#third-example {
+    color: blue;
+}
