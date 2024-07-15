@@ -30,6 +30,10 @@ body {
     color: blue;
 }
 
+#fourth-example .another-random-example {
+    color: orange;
+}
+
  /* media to screens smaller than 770px  */
 @media only screen and (max-width: 770px) {
     .example {

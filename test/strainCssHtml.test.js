@@ -31,6 +31,9 @@ describe('strainCssHtml', async () => {
         console.log(newCssBody);
         console.log('\nnewHtmlBody:');
         console.log('--------------------------------------------');
+        console.log('\ncssMaps');
+        console.log(result.css.cssMaps);
+        console.log('--------------------------------------------');
         console.log(newHtmlBody);
 
         it('Check CSS structure', () => {
@@ -45,6 +48,7 @@ describe('strainCssHtml', async () => {
             expect(result.css.css).to.match(/\.prefix_v1_\w{4}_example {\s*color: blue;\s*}/);
             expect(result.css.css).to.match(/\.prefix_v1_\w{4}_second-example {\s*color: green;\s*}/);
             expect(result.css.css).to.match(/#prefix_v1_\w{4}_third-example {\s*color: blue;\s*}/);
+            expect(result.css.css).to.match(/#prefix_v1_\w{4}_fourth-example .prefix_v1_\w{4}_another-random-example {\s*color: orange;\s*}/);
         });
 
         it('Check if the HTML was processed correctly', () => {
@@ -54,6 +58,9 @@ describe('strainCssHtml', async () => {
             expect(result.html).to.match(/<div class="prefix_v1_\w{4}_second-example prefix_v1_\w{4}_another-example" data-strain-class="\[second-example\]\[another-example\]">Second and Another Example<\/div>/);
             expect(result.html).to.match(/<div class="prefix_v1_\w{4}_another-example" data-strain-class="\[another-example\]">Another Example<\/div>/);
             expect(result.html).to.match(/<div id="prefix_v1_\w{4}_third-example" data-strain-id="third-example">Third Example<\/div>/);
+            expect(result.html).to.match(/<div id="prefix_v1_\w{4}_fourth-example" data-strain-id="fourth-example">/);
+            expect(result.html).to.match(/<div class="prefix_v1_\w{4}_another-random-example" data-strain-class="\[another-random-example\]">Fourth Example<\/div>/);
+
         });
     } catch (error) {
         console.error(error);
