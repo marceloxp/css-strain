@@ -5,14 +5,14 @@ function strainCssHtml(options) {
     let options_default = {
         cssBody: '',
         htmlBody: '',
-        addHelpers: false,
+        addHelper: false,
         separator: null,
         randomLength: 4,
         prefix: null,
         version: null
     };
 
-    const { cssBody, htmlBody, addHelpers, separator, randomLength, prefix, version } = Object.assign({}, options_default, options);
+    const { cssBody, htmlBody, addHelper, separator, randomLength, prefix, version } = Object.assign({}, options_default, options);
 
     const cssOptions = {
         cssBody,
@@ -25,8 +25,8 @@ function strainCssHtml(options) {
 
     const htmlOptions = {
         htmlBody,
-        cssMap: cssResult.cssMaps,
-        addHelpers,
+        strainData: cssResult.strain,
+        addHelper,
         separator,
         randomLength,
         prefix,
