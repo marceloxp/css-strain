@@ -1,4 +1,3 @@
-const path = require('path');
 const fs = require('fs-extra');
 const { strainCssHtml } = require('../index');
 
@@ -15,7 +14,7 @@ describe('strainCssHtml', async () => {
         const options = {
             cssBody,
             htmlBody,
-            addHelper: false,
+            addHelper: true,
             separator: '_',
             randomLength: 4,
             prefix: 'prefix',

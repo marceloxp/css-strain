@@ -1,6 +1,6 @@
 {
   "name": "css-strain",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "A tool for obfuscating CSS selectors and optionally replacing them in HTML files. Prevents class and ID conflicts.",
   "main": "index.js",
   "keywords": [
