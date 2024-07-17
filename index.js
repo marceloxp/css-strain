@@ -16,6 +16,7 @@ function strainCssHtml(options) {
 
     const cssOptions = {
         cssBody,
+        htmlBody,
         separator,
         randomLength,
         prefix,
@@ -37,7 +38,5 @@ function strainCssHtml(options) {
 }
 
 module.exports = {
-    strainCss,
-    strainHtml,
     strainCssHtml,
 }

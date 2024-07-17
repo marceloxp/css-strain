@@ -48,19 +48,49 @@ body {
     color: black;
     background-color: silver;
     padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
+#fourth-example.yet-another-random-example {
+    color: orange;
+}
+
+.first-section * {
+    margin: 0;
+    padding: 2px;
+}
+
 .example {
     color: red;
 }
+
+.example::before {
+    content: '🔗';
+}
+
 .second-example {
     color: green;
 }
+
 .another-example {
     color: yellow;
 }
+
 #third-example {
     color: blue;
 }
+
+#fourth-example .another-random-example {
+    color: orange;
+}
+
+ /* media to screens smaller than 770px  */
+@media only screen and (max-width: 770px) {
+    .example {
+        color: blue;
+    }
+}
+
 ```
 
 ### HTML Source
@@ -68,19 +98,27 @@ body {
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1 class="example">Hello World</h1>
-    <div id="only-id" class="only-class another-only-class">Hello World</div>
-    <div class="second-example another-example">Hello World One</div>
-    <div class="another-example">Hello World Two</div>
-    <div id="third-example">Hello World</div>
+    <section class="first-section" no-strain="no-strain">
+        <h1 class="example">Hello World Example</h1>
+        <div id="only-id" class="only-class another-only-class">Only ID and Only Class</div>
+        <div class="second-example another-example">Second and Another Example</div>
+        <div class="another-example">Another Example</div>
+        <div id="third-example">Third Example</div>
+        <div id="fourth-example"><div class="another-random-example">Fourth Example</div></div>
+        <div id="void-example" no-strain="no-strain">Void Example</div>
+    </section>
+    <script src="index.js"></script>
 </body>
+
 </html>
 ```
 
@@ -90,54 +128,137 @@ body {
 
 ```css
 body {
-    color: black;
-    background-color: silver;
-    padding: 10px;
+  color: black;
+  background-color: silver;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.prefix_v1_WojH_example {
-    color: red;
+#prefix_v1_XzWT_fourth-example.prefix_v1_fJzo_yet-another-random-example {
+  color: orange;
 }
 
-.prefix_v1_MMHh_second-example {
-    color: green;
+.first-section * {
+  margin: 0;
+  padding: 2px;
 }
 
-.prefix_v1_vjDr_another-example {
-    color: yellow;
+.prefix_v1_lgCs_example {
+  color: red;
 }
 
-#prefix_v1_PaOp_third-example {
+.prefix_v1_lgCs_example::before {
+  content: '🔗';
+}
+
+.prefix_v1_nSPL_second-example {
+  color: green;
+}
+
+.prefix_v1_yOUZ_another-example {
+  color: yellow;
+}
+
+#prefix_v1_zLlC_third-example {
+  color: blue;
+}
+
+#prefix_v1_XzWT_fourth-example .prefix_v1_CbkY_another-random-example {
+  color: orange;
+}
+
+/* media to screens smaller than 770px  */
+
+@media only screen and (max-width: 770px) {
+  .prefix_v1_lgCs_example {
     color: blue;
+  }
 }
 ```
 
 ### HTML Result
 
 ```html
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <script>
+        window.strainDict = {
+            "version": "_v1",
+            "prefix": "prefix",
+            "separator": "_",
+            "dict": {
+                "c": {
+                    "yet-another-random-example": "fJzo",
+                    "example": "lgCs",
+                    "second-example": "nSPL",
+                    "another-example": "yOUZ",
+                    "another-random-example": "CbkY",
+                    "first-section": "enuk",
+                    "only-class": "erKV",
+                    "another-only-class": "uIck"
+                },
+                "i": {
+                    "fourth-example": "XzWT",
+                    "third-example": "zLlC",
+                    "only-id": "gndZ",
+                    "void-example": "yGMm"
+                }
+            },
+            "dothash": {
+                "c": ".",
+                "i": "#"
+            }
+        };
+
+        function getStrainSelector(selector) {
+            return selector.replace(/([#.][a-zA-Z0-9_-]+)/g, (match) => {
+                const element = match[0];
+                const type = element === '#' ? 'i' : 'c';;
+                const source = match.slice(1);
+                const random = window.strainDict.dict[type][source];
+                return `${window.strainDict.dothash[type] || ''}${window.strainDict.prefix || ''}${window.strainDict.version || ''}${window.strainDict.separator || ''}${random}${window.strainDict.separator || ''}${source}`;
+            });
+        }
+
+        function strainGetName(selector) {
+            const result = getStrainSelector(selector);
+            return result.slice(1);
+        }
+
+        function strainGetElementById(selector) {
+            const element_id = strainGetName('#' + selector);
+            return document.getElementById(element_id);
+        }
+
+        function strainQuerySelector(selector) {
+            return document.querySelector(getStrainSelector(selector));
+        }
+
+        function strainQuerySelectorAll(selector) {
+            return document.querySelectorAll(getStrainSelector(selector));
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <script>
-        const getStrainById = function(t) {
-                return document.querySelector('[data-strain-id="' + t + '"]')
-            },
-            getStrainByClass = function(t) {
-                return document.querySelectorAll('[data-strain-class*="[' + t + ']"]')
-            };
-    </script>
 </head>
 
 <body>
-    <h1 class="prefix_v1_WojH_example" data-strain-class="[example]">Hello World</h1>
-    <div id="prefix_v1_YxCG_only-id" class="prefix_v1_sIKV_only-class prefix_v1_ToJk_another-only-class" data-strain-id="only-id" data-strain-class="[only-class][another-only-class]">Hello World</div>
-    <div class="prefix_v1_MMHh_second-example prefix_v1_vjDr_another-example" data-strain-class="[second-example][another-example]">Hello World One</div>
-    <div class="prefix_v1_vjDr_another-example" data-strain-class="[another-example]">Hello World Two</div>
-    <div id="prefix_v1_PaOp_third-example" data-strain-id="third-example">Hello World</div>
+    <section class="first-section" no-strain="no-strain">
+        <h1 class="prefix_v1_lgCs_example" data-strain-class="[example]">Hello World Example</h1>
+        <div id="prefix_v1_gndZ_only-id" class="prefix_v1_erKV_only-class prefix_v1_uIck_another-only-class" data-strain-id="only-id" data-strain-class="[only-class][another-only-class]">Only ID and Only Class</div>
+        <div class="prefix_v1_nSPL_second-example prefix_v1_yOUZ_another-example" data-strain-class="[second-example][another-example]">Second and Another Example</div>
+        <div class="prefix_v1_yOUZ_another-example" data-strain-class="[another-example]">Another Example</div>
+        <div id="prefix_v1_zLlC_third-example" data-strain-id="third-example">Third Example</div>
+        <div id="prefix_v1_XzWT_fourth-example" data-strain-id="fourth-example">
+            <div class="prefix_v1_CbkY_another-random-example" data-strain-class="[another-random-example]">Fourth Example</div>
+        </div>
+        <div id="void-example" no-strain="no-strain">Void Example</div>
+    </section>
+    <script src="index.js"></script>
 </body>
 
 </html>
@@ -146,13 +267,15 @@ body {
 ### Using helpers
 
 ```js
-const element = getStrainById('third-example');
-// Result: <div id="prefix_v1_MuUt_third-example" data-strain-id="third-example">Hello World</div>
+getStrainSelector('#only-id.only-class')
+// #prefix_v1_gndZ_only-id.prefix_v1_erKV_only-class
 
-const elements = getStrainByClass('another-example')
-// Results:
-// <div class="prefix_v1_iovW_second-example prefix_v1_MYzU_another-example" data-strain-class="[second-example][another-example]">Hello World One</div>
-// <div class="prefix_v1_MYzU_another-example" data-strain-class="[another-example]">Hello World Two</div>
+strainGetElementById('only-id')
+// <div id="prefix_v1_gndZ_only-id" class="prefix_v1_erKV_only-class prefix_v1_uIck_another-only-class" data-strain-id="only-id" data-strain-class="[only-class][another-only-class]">Only ID and Only Class</div>
+
+strainQuerySelectorAll('.another-example')
+// <div class="prefix_v1_nSPL_second-example prefix_v1_yOUZ_another-example" data-strain-class="[second-example][another-example]">Second and Another Example</div>
+// <div class="prefix_v1_yOUZ_another-example" data-strain-class="[another-example]">Another Example</div>
 ```
 
 ### Use css-strain to keep your CSS organized, secure, and conflict-free, with the flexibility to adjust your HTML as needed.
