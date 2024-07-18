@@ -23,6 +23,11 @@ describe('strainCssHtml', async () => {
 
         const result = strainCssHtml(options);
 
+        console.log('RESULT');
+        console.log('--------------------------------------------');
+        console.log(JSON.stringify(result, null, 2));
+        console.log('--------------------------------------------');
+
         const newCssBody = result.css.css;
         const newHtmlBody = result.html;
 
@@ -30,17 +35,6 @@ describe('strainCssHtml', async () => {
         fs.writeFileSync('./test/output/style.css', newCssBody);
         fs.writeFileSync('./test/output/index.html', newHtmlBody);
         fs.cpSync('./test/input/index.js', './test/output/index.js');
-
-        console.log('\nnewCssBody:');
-        console.log('--------------------------------------------');
-        console.log(newCssBody);
-        console.log('\nnewHtmlBody:');
-        console.log('--------------------------------------------');
-        console.log('\ncss');
-        console.log(result.css);
-        console.log(JSON.stringify(result.css, null, 2));
-        console.log('--------------------------------------------');
-        console.log(newHtmlBody);
 
         // it('Check CSS structure', () => {
         //     // expect(result.css).to.have.property('selectors').that.is.an('array');
